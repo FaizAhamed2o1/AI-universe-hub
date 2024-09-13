@@ -7,10 +7,10 @@ body {
 /* Style the button */
 .shrink-button {
   cursor: pointer;
-  transition: transform 0.3s ease; /* Smooth transition */
+  transition: transform 0.2s ease; /* Smooth transition */
 }
 
 /* Add animation on click */
 .shrink-button:active {
-  transform: scale(0.8); /* Shrinks button to 80% of its size */
+  transform: scale(0.9); /* Shrinks button to 80% of its size */
 }
