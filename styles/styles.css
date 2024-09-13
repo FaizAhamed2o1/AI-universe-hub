@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  font-family: "Work Sans", sans-serif;
+}
+
+/* Style the button */
+.shrink-button {
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+/* Add animation on click */
+.shrink-button:active {
+  transform: scale(0.8); /* Shrinks button to 80% of its size */
+}

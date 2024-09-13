@@ -12,10 +12,71 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- ! Tailwind and daisy UI CDN end -->
+    <link rel="stylesheet" href="./styles/styles.css" />
 
     <title>AI Universe Hub</title>
   </head>
   <body>
+    <!-- ! Header starts -->
+    <header class="text-center mt-14 my-12">
+      <h1 class="text-[2.8125rem] mb-8 font-semibold">AI Universe Hub</h1>
+      <button
+        class="shrink-button py-6 px-7 bg-[#eb5757] rounded-2xl text-white text-xl font-semibold hover:bg-[#eb5757D9]"
+      >
+        Sort By Date
+      </button>
+    </header>
+    <!-- ! Header ends -->
+
+    <!-- ! Main starts -->
+    <main class="max-w-[1600px] mx-auto px-12">
+      <!-- ? Card Container Start-->
+      <div id="cards-container">
+        <!-- card -->
+        <div class="card bg-white p-6 max-w-[487px] border">
+          <figure class="pb-5">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              alt="Shoes"
+              class="rounded-xl"
+            />
+          </figure>
+
+          <div class="card-body p-0 gap-0">
+            <div id="features" class="pb-6 mb-6 border-b border-[#11111133]">
+              <h2 class="card-title mb-4 text-2xl font-semibold">Features</h2>
+              <ol class="list-decimal list-inside text-[#585858]">
+                <li>Natural language processing</li>
+                <li>Context Understanding</li>
+                <li>Text Generation</li>
+              </ol>
+            </div>
+
+            <div class="card-actions items-center justify-between">
+              <div>
+                <h2 class="mb-4 text-2xl font-semibold">Chat GPT</h2>
+                <div class="flex gap-2">
+                  <img src="./assets/images/calender.svg" alt="" />
+                  <p class="text-[#585858] font-medium">11/01/2022</p>
+                </div>
+              </div>
+              <button
+                class="shrink-button h-12 w-12 rounded-full bg-[#fef7f7] flex items-center justify-center"
+              >
+                <img src="./assets/images/rightArrow.svg" alt="" class="w-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ? Card Container End-->
+    </main>
+    <!-- ! Main ends -->
+
+    <!-- ! Footer starts -->
+    <footer></footer>
+    <!-- ! Footer ends -->
+
     <!-- ! JS -->
     <script src="./js/main.js"></script>
   </body>
