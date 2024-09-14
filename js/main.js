@@ -5,6 +5,7 @@ const fetchData = async () => {
   );
   const json = await response.json();
   const data = json.data.tools;
+
   showAiToolsCard(data);
 };
 
@@ -12,34 +13,43 @@ const fetchData = async () => {
 const showAiToolsCard = (tools) => {
   const cardsContainer = document.getElementById("cards-container");
 
+  //  todo: AI card
   tools.forEach((tool) => {
+    // console.log(tool?.image);
     const aiToolsCard = document.createElement("div");
     aiToolsCard.classList = "card bg-white p-6  border";
     aiToolsCard.innerHTML = `
     <figure class="pb-5">
             <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              src="${
+                tool?.image || "../assets/images/no-image-available-resized.png"
+              }"
               alt="Shoes"
-              class="rounded-xl"
+              class="rounded-xl h-[246px]"
+              id="tool-img"
+              onerror="this.onerror=null;this.src='../assets/images/no-image-available-resized.png';"
+              
             />
           </figure>
 
           <div class="card-body p-0 gap-0">
             <div id="features" class="pb-6 mb-6 border-b border-[#11111133]">
               <h2 class="card-title mb-4 text-2xl font-semibold">Features</h2>
-              <ol class="list-decimal list-inside text-[#585858]">
-                <li>Natural language processing</li>
-                <li>Context Understanding</li>
-                <li>Text Generation</li>
+              <ol id="features-container-${
+                tool.id
+              }" class="list-decimal list-inside text-[#585858]">
+                
               </ol>
             </div>
 
             <div class="card-actions items-center justify-between">
               <div>
-                <h2 class="mb-4 text-2xl font-semibold">Chat GPT</h2>
+                <h2 class="mb-4 text-2xl font-semibold">${tool?.name}</h2>
                 <div class="flex gap-2">
                   <img src="./assets/images/calender.svg" alt="" />
-                  <p class="text-[#585858] font-medium">11/01/2022</p>
+                  <p class="text-[#585858] font-medium">${
+                    tool?.published_in
+                  }</p>
                 </div>
               </div>
               <button
@@ -50,7 +60,19 @@ const showAiToolsCard = (tools) => {
             </div>
           </div>
     `;
+
     cardsContainer.appendChild(aiToolsCard);
+
+    const featuresContainer = document.getElementById(
+      `features-container-${tool.id}`
+    );
+
+    tool.features.forEach((feature) => {
+      const li = document.createElement("li");
+      li.innerText = feature;
+      featuresContainer.appendChild(li);
+    });
   });
 };
+
 fetchData();
