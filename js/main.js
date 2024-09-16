@@ -1,21 +1,34 @@
 // ! Function to fetch data from API
-const fetchData = async () => {
+const fetchData = async (showAllData = false) => {
   const response = await fetch(
     "https://openapi.programming-hero.com/api/ai/tools"
   );
   const json = await response.json();
   const data = json.data.tools;
 
-  showAiToolsCard(data);
+  showAiToolsCard(data, showAllData);
 };
 
 // ! Function to show all the AI tools card
-const showAiToolsCard = (tools) => {
+const showAiToolsCard = (tools, showAllData) => {
   const cardsContainer = document.getElementById("cards-container");
+  cardsContainer.innerHTML = "";
+  const seeMoreBtn = document.getElementById("see-more-btn");
 
-  //  todo: AI card
+  // todo: logic for showing or not showing the showSeeMoreBtn
+  if (tools.length > 6 && !showAllData) {
+    seeMoreBtn.classList.remove("hidden");
+  } else {
+    seeMoreBtn.classList.add("hidden");
+  }
+
+  // todo: Logic for slicing the tools array to 6 if not showing all data
+  if (!showAllData) {
+    tools = tools.slice(0, 6);
+  }
+
+  //  todo: show AI cards
   tools.forEach((tool) => {
-    // console.log(tool?.image);
     const aiToolsCard = document.createElement("div");
     aiToolsCard.classList = "card bg-white p-6  border";
     aiToolsCard.innerHTML = `
@@ -67,12 +80,28 @@ const showAiToolsCard = (tools) => {
       `features-container-${tool.id}`
     );
 
-    tool.features.forEach((feature) => {
-      const li = document.createElement("li");
-      li.innerText = feature;
-      featuresContainer.appendChild(li);
-    });
+    getFeatures(featuresContainer, tool.features);
   });
 };
 
+// ! Function to show the features of each card
+const getFeatures = (elementToAppend, features) => {
+  features.forEach((feature) => {
+    const li = document.createElement("li");
+    li.innerText = feature;
+    elementToAppend.appendChild(li);
+  });
+};
+
+// // ! Add event listener for the 'See More' button
+// document.getElementById("see-more-btn").addEventListener("click", () => {
+//   handleSeeMoreBtn();
+// });
+
+// ! Function to handle see more button
+const handleSeeMoreBtn = () => {
+  fetchData(true); // Passing true to show all the data
+};
+
+// Initial data load
 fetchData();
