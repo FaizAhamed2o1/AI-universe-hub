@@ -67,6 +67,7 @@ const showAiToolsCard = (tools, showAllData) => {
               </div>
               <button
                 class="shrink-button h-12 w-12 rounded-full bg-[#fef7f7] flex items-center justify-center"
+                onclick="handleShowDetail('${tool.id}')"
               >
                 <img src="./assets/images/rightArrow.svg" alt="" class="w-6" />
               </button>
@@ -93,11 +94,6 @@ const getFeatures = (elementToAppend, features) => {
   });
 };
 
-// // ! Add event listener for the 'See More' button
-// document.getElementById("see-more-btn").addEventListener("click", () => {
-//   handleSeeMoreBtn();
-// });
-
 // ! Function to handle see more button
 const handleSeeMoreBtn = () => {
   fetchData(true); // Passing true to show all the data
@@ -105,3 +101,115 @@ const handleSeeMoreBtn = () => {
 
 // Initial data load
 fetchData();
+
+// ! Function to fetch API data for modal
+const handleShowDetail = async (id) => {
+  const response = await fetch(
+    `https://openapi.programming-hero.com/api/ai/tool/${id}`
+  );
+  const json = await response.json();
+  const toolDetailData = json.data;
+
+  showAiToolDetail(toolDetailData);
+};
+
+const showAiToolDetail = (toolDetailData) => {
+  console.log(toolDetailData);
+  const aiToolModal = document.getElementById("details_modal");
+  aiToolModal.innerHTML = `
+  <div class="modal-box-wrapper w-[77.875rem] relative overflow-visible">
+          <div class="modal-box min-w-full p-32 overflow-auto">
+            <!-- * Modal Content -->
+            <div class="modalContentContainer grid grid-cols-2 gap-5">
+              <!-- Features and pricings -->
+              <div
+                class="bg-[#eb57570D] p-8 rounded-2xl border border-[#eb5757]"
+              >
+                <h2 class="Heading text-2xl font-semibold leading-normal mb-6">
+                  ${toolDetailData.description}
+                </h2>
+
+                <div class="Pricings grid grid-cols-3 gap-4 text-center mb-6">
+                  <p
+                    class="bg-white text-[#03a30a] font-bold px-[26px] py-[22px] rounded-2xl flex items-center"
+                  >
+                    $10/month <br />Basic
+                  </p>
+                  <p
+                    class="bg-white text-[#f28927] font-bold px-[26px] py-[22px] rounded-2xl flex items-center"
+                  >
+                    $50/month <br />
+                    Pro
+                  </p>
+                  <p
+                    class="bg-white text-[#eb5757] font-bold px-[26px] py-[22px] rounded-2xl flex items-center"
+                  >
+                    Contact us Enterprise
+                  </p>
+                </div>
+
+                <div class="FeaturesAndIntegrations flex gap-6">
+                  <div class="Features">
+                    <h3 class="text-2xl font-semibold mb-4">Features</h3>
+                    <ul
+                      class="list-inside list-disc text-[#585858] leading-relaxed ml-2"
+                    >
+                      <li>Customizable responses</li>
+                      <li>Multilingual support</li>
+                      <li>Seamless integration</li>
+                    </ul>
+                  </div>
+
+                  <div class="Integrations">
+                    <h3 class="text-2xl font-semibold mb-4">Integrations</h3>
+                    <ul
+                      class="list-inside list-disc text-[#585858] leading-relaxed ml-2"
+                    >
+                      <li>FB Messenger</li>
+                      <li>Slack</li>
+                      <li>Telegram</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Image and accuracy -->
+              <div class="p-6 border rounded-2xl">
+                <div class="imgContainer rounded-2xl relative mb-6">
+                  <img
+                    class="w-full aspect-[437/340] rounded-2xl object-cover"
+                    src="./assets/images/dummy-modal.jpg"
+                    alt=""
+                  />
+                  <p
+                    class="font-semibold text-white bg-[#eb5757] rounded-lg w-fit px-4 py-2 absolute top-3 right-2"
+                  >
+                    94% accuracy
+                  </p>
+                </div>
+
+                <div class="text-center max-w-[360px] mx-auto space-y-4">
+                  <h2 class="text-2xl font-semibold">
+                    Hi, how are you doing today?
+                  </h2>
+                  <p class="text-[#585858] leading-relaxed">
+                    I'm doing well, thank you for asking. How can I assist you
+                    today?
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form method="dialog" class="">
+            <button
+              class="btn btn-md btn-circle outline-none text-md text-white btn-ghost absolute -right-4 -top-4 bg-[#eb5757]"
+            >
+              ✕
+            </button>
+          </form>
+        </div>
+  `;
+
+  details_modal.showModal();
+};
